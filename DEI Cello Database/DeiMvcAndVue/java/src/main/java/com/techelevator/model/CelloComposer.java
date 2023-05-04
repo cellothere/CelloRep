@@ -4,15 +4,16 @@ public class CelloComposer {
     private int composerId;
     private String composerName;
     private String composerBio;
-
+    private String wikipediaLink;
 
     public CelloComposer() {
     }
 
-    public CelloComposer(int composerId, String composerName, String composerBio) {
+    public CelloComposer(int composerId, String composerName, String composerBio, String wikipediaLink) {
         this.composerId = composerId;
         this.composerName = composerName;
         this.composerBio = composerBio;
+        this.wikipediaLink = wikipediaLink;
     }
 
     public int getComposerId() {
@@ -39,7 +40,11 @@ public class CelloComposer {
         this.composerBio = composerBio;
     }
 
+    public String getWikipediaLink() {
+        return wikipediaLink;
+    }
 
-
-
+    public void setWikipediaLink(String wikipediaLink) {
+        this.wikipediaLink = wikipediaLink;
+    }
 }

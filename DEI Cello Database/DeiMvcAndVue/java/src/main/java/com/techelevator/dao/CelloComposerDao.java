@@ -15,5 +15,7 @@ public interface CelloComposerDao {
 
     void updateComposer(CelloComposer composer) throws SQLException;
 
+    String getWikipediaArticleByComposerId(int id) throws SQLException;
+
     void deleteComposer(int id) throws SQLException;
 }

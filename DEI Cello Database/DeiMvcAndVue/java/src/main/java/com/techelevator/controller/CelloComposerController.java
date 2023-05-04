@@ -71,6 +71,22 @@ public class CelloComposerController {
         }
     }
 
+    @GetMapping("/{id}/wikipedia-article")
+    public ResponseEntity<String> getWikipediaArticleByComposerId(@PathVariable int id) {
+        try {
+            String wikipediaArticle = celloComposerDao.getWikipediaArticleByComposerId(id);
+            if (wikipediaArticle != null) {
+                return new ResponseEntity<>(wikipediaArticle, HttpStatus.OK);
+            } else {
+                return new ResponseEntity<>(HttpStatus.NOT_FOUND);
+            }
+        } catch (SQLException e) {
+            // Handle exceptions
+            return new ResponseEntity<>(HttpStatus.INTERNAL_SERVER_ERROR);
+        }
+    }
+
+
     @DeleteMapping("/delete/{id}")
     public ResponseEntity<Void> deleteComposer(@PathVariable int id) {
         try {

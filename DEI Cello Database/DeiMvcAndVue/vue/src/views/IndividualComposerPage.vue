@@ -3,14 +3,18 @@
     <div class="composerInfo">
         <h2>{{ composer.composerName }}</h2>
         <article class="bio">{{ composer.composerBio}}</article>
+        <a :href="composer.wikipediaLink" target="_blank" rel="noopener noreferrer">Wikipedia Article</a>
     </div>
 
     <h3>Cello Works by {{ composer.composerName }}:</h3>
-    <div>
+    <div class="list-of-pieces">
         <cello-piece-card v-for="piece in celloPieces" :key="piece.id" :piece="piece" :composerNames="composerNames"/>
     </div>
   </div>
 </template>
+
+<!-- ... Remaining script and style sections ... -->
+
 
 <script>
 
@@ -127,5 +131,13 @@ h3 {
 .bio {
     margin-left: 2%;
     margin-right: 2%;
+}
+
+.list-of-pieces {
+    display: flex;
+    margin: 2%;
+    align-content: center;
+    justify-content: center;
+    flex-wrap: wrap;
 }
 </style>

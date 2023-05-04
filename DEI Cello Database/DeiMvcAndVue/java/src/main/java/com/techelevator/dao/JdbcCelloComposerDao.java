@@ -67,13 +67,23 @@ public class JdbcCelloComposerDao implements CelloComposerDao {
         String sql = "DELETE FROM cello_composers WHERE composer_id = ?";
         jdbcTemplate.update(sql, id);
     }
-
+    @Override
+    public String getWikipediaArticleByComposerId(int id) throws SQLException {
+        String sql = "SELECT wikipedia_article FROM cello_composers WHERE composer_id = ?";
+        try {
+            return jdbcTemplate.queryForObject(sql, String.class, id);
+        } catch (EmptyResultDataAccessException e) {
+            // Handle case where no composer with given ID is found
+        }
+        return null;
+    }
 
     private CelloComposer mapRow(SqlRowSet rs) {
         CelloComposer composer = new CelloComposer();
         composer.setComposerId(rs.getInt("composer_id"));
         composer.setComposerName(rs.getString("composer_name"));
         composer.setComposerBio(rs.getString("composer_bio"));
+        composer.setWikipediaLink(rs.getString("wikipedia_article"));
         return composer;
     }
 }

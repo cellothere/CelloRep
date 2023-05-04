@@ -3,11 +3,14 @@
     <img src="https://static.alfred.com/cache/c3/73/c373b66d76600d945e94da44f068041d.jpg" alt="Composer" class="composer-img">
     <h3>{{ piece.pieceName }}</h3>
 
-      <router-link :to="getComposerPageLink(piece.composerId)" @click="emitComposerClicked">
-        {{ composerNames[piece.composerId] }}
-      Composer </router-link>
-    
+    <router-link :to="getComposerPageLink(piece.composerId)" @click="emitComposerClicked">
+      {{ composerNames[piece.composerId] }}
+      Composer
+    </router-link>
+
     <p class="book-level">Book Level: {{ piece.suzukiBookLevelId }}</p>
+
+    <button class="overview-button">Overview</button>
   </div>
 </template>
 
@@ -52,7 +55,7 @@ export default {
   flex-direction: column;
   align-items: center;
   text-align: center;
-  height: 16rem;
+  height: 20rem;
 }
 
 .cello-piece-card:hover {
@@ -83,4 +86,20 @@ export default {
   height: 100px;
   margin-bottom: 10px;
 }
+
+  .overview-button {
+    background-color: #114D97;
+    color: #fff;
+    border: none;
+    border-radius: 4px;
+    padding: 8px 16px;
+    font-size: 1rem;
+    margin-top: 1px;
+    cursor: pointer;
+    transition: background-color 0.3s ease;
+  }
+
+  .overview-button:hover {
+    background-color: green;
+  }
 </style>
