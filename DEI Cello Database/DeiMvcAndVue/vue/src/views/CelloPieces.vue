@@ -221,4 +221,38 @@ h1 {
 .show-more-button:hover {
   background-color: #555;
 }
+@media screen and (max-width: 600px) {
+  .cello-pieces-container {
+    padding: 20px;
+  }
+
+  .filter-bar{
+    display: none;
+  }
+
+  h1 {
+    font-size: 1.5rem;
+  }
+
+  .search-input input {
+    font-size: 14px;
+  }
+
+  .filter-button {
+    font-size: 14px;
+    padding: 8px;
+  }
+
+  .cello-pieces-list {
+    justify-content: space-between;
+  }
+
+  .cello-piece-card {
+    flex-basis: 100%;
+    margin-bottom: 15px;
+  }
+}
+
+
+
 </style>

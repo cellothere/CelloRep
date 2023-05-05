@@ -4,6 +4,7 @@ import Home from '../views/Home.vue'
 import CelloComposers from '../views/CelloComposers.vue'
 import CelloPieces from '../views/CelloPieces.vue'
 import IndividualComposer from "../views/IndividualComposerPage.vue";
+import CelloPieceOverview from "../views/CelloPieceOverview"
 import store from '../store/index'
 
 Vue.use(Router)
@@ -40,6 +41,14 @@ const router = new Router({
       path: "/pieces",
       name: "pieces",
       component: CelloPieces,
+      meta: {
+        requiresAuth: false
+      }
+    },
+    {
+      path: "/pieces/:id",
+      name: "pieceOverview",
+      component: CelloPieceOverview,
       meta: {
         requiresAuth: false
       }

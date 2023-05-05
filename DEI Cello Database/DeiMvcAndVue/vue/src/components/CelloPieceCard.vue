@@ -1,7 +1,7 @@
 <template>
   <div class="cello-piece-card">
     <img src="https://static.alfred.com/cache/c3/73/c373b66d76600d945e94da44f068041d.jpg" alt="Composer" class="composer-img">
-    <h3>{{ piece.pieceName }}</h3>
+    <router-link :to="getPieceOverview(piece.pieceId)">{{ piece.pieceName }}</router-link>
 
     <router-link :to="getComposerPageLink(piece.composerId)" @click="emitComposerClicked">
       {{ composerNames[piece.composerId] }}
@@ -10,7 +10,7 @@
 
     <p class="book-level">Book Level: {{ piece.suzukiBookLevelId }}</p>
 
-    <button class="overview-button">Overview</button>
+    <button class="overview-button" @click="$router.push(getPieceOverview(piece.pieceId))">Overview</button>
   </div>
 </template>
 
@@ -25,10 +25,6 @@ export default {
       type: Object,
       required: true,
     },
-    composerImages: {
-      type: Object,
-      required: true,
-    },
   },
   methods: {
     getComposerPageLink(composerId) {
@@ -36,6 +32,9 @@ export default {
     },
     emitComposerClicked() {
       this.$emit("composer-clicked", this.piece.composerId);
+    },
+    getPieceOverview(id) {
+        return `/pieces/${id}`
     }
   }
   
@@ -102,4 +101,15 @@ export default {
   .overview-button:hover {
     background-color: green;
   }
+
+  .cello-piece-card a {
+  color: black;
+  text-decoration: underline;
+}
+
+.cello-piece-card a:visited {
+  color: black;
+}
+
+  
 </style>

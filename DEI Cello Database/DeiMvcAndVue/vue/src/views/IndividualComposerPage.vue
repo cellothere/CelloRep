@@ -3,7 +3,8 @@
     <div class="composerInfo">
         <h2>{{ composer.composerName }}</h2>
         <article class="bio">{{ composer.composerBio}}</article>
-        <a :href="composer.wikipediaLink" target="_blank" rel="noopener noreferrer">Wikipedia Article</a>
+        <a :href="composer.wikipediaLink" target="_blank" rel="noopener noreferrer" @mouseover="showPreview" @mouseleave="hidePreview">Wikipedia Article</a>
+        <div class="wiki-preview" v-show="previewVisible" ref="wikiPreview"></div>
     </div>
 
     <h3>Cello Works by {{ composer.composerName }}:</h3>
@@ -12,9 +13,6 @@
     </div>
   </div>
 </template>
-
-<!-- ... Remaining script and style sections ... -->
-
 
 <script>
 
@@ -26,13 +24,14 @@ export default {
     components: {
   celloPieceCard,
 },
-data() {
-  return {
-    composer: {},
-    composerNames: {}, 
-    celloPieces: [],
-  };
-},
+  data() {
+    return {
+      composer: {},
+      composerNames: {},
+      celloPieces: [],
+      previewVisible: false,
+    };
+  },
 
 created() {
   const composerId = this.$route.params.id;
@@ -59,8 +58,14 @@ methods: {
         console.error("Error fetching cello pieces:", error);
       });
   },
-},
-}
+    showPreview() {
+      this.previewVisible = true;
+    },
+    hidePreview() {
+      this.previewVisible = false;
+    },
+  },
+};
 </script>
 
 <style>
@@ -139,5 +144,37 @@ h3 {
     align-content: center;
     justify-content: center;
     flex-wrap: wrap;
+}
+
+.wiki-preview {
+  position: absolute;
+  width: 300px;
+  height: 200px;
+  background-color: #f9f9f9;
+  border: 1px solid #ddd;
+  box-shadow: 0px 0px 10px rgba(0, 0, 0, 0.1);
+  border-radius: 5px;
+  padding: 1rem;
+  overflow: hidden;
+  z-index: 10;
+  transition: all 0.3s;
+  opacity: 0;
+  pointer-events: none;
+}
+
+.wiki-preview::before {
+  content: "";
+  position: absolute;
+  width: 100%;
+  height: 100%;
+  background-image: url(https://upload.wikimedia.org/wikipedia/commons/d/de/Ajax-loader.gif);
+  background-repeat: no-repeat;
+  background-position: center center;
+  z-index: -1;
+}
+
+.show-preview {
+  opacity: 1;
+  pointer-events: auto;
 }
 </style>

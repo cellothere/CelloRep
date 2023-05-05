@@ -57,7 +57,12 @@ public class CelloPiecesController {
     }
 
     @GetMapping("/composers/{composerId}")
-    public List<CelloPiece> getCelloPiecesByComposerId(@PathVariable int composerId) {
-        return celloPiecesDao.getCelloPiecesByComposerId(composerId);
+    public ResponseEntity<List<CelloPiece>> getCelloPiecesByComposerId(@PathVariable int composerId) {
+        List<CelloPiece> celloPieces = celloPiecesDao.getCelloPiecesByComposerId(composerId);
+        if (!celloPieces.isEmpty()) {
+            return new ResponseEntity<>(celloPieces, HttpStatus.OK);
+        } else {
+            return new ResponseEntity<>(HttpStatus.NOT_FOUND);
+        }
     }
 }
