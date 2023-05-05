@@ -19,7 +19,6 @@ export default {
         require('../../assets/priceImg.jpg'),
         require('../../assets/mooreImg.jpg'),
         require('../../assets/bakerImg.jpg'),
-        
         // Add more image paths as needed
       ],
       currentImageIndex: 0,
@@ -124,5 +123,16 @@ export default {
   display: grid;
   place-items: center;
   font-family: Poppins;
+}
+
+@media (max-width: 600px) {
+  .landing-page {
+    grid-template-columns: 1fr; /* Switch to a single column layout */
+    grid-template-areas: "content" "welcomeContent"; /* Update grid areas */
+  }
+
+  .image {
+    height: 300px; /* Adjust the image height for mobile */
+  }
 }
 </style>
