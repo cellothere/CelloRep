@@ -3,22 +3,22 @@
     <h1>Overview</h1>
     <div class="piece-info">
       <div class="left-column">
-        <img src="https://via.placeholder.com/300x400" alt="Cello Piece Cover" />
+        <img :src="celloPiece.coverImage" alt="Cello Piece Cover" class="piece-image" />
       </div>
       <div class="right-column">
         <h2>{{ celloPiece.pieceName }}</h2>
         <div class="composer">{{ composer.name }}</div>
         <div class="detail-row">
-          <strong>Suzuki Book Level:</strong>
+          <strong>Composer:</strong>
+          <router-link :to="getComposerPageLink(celloPiece.composerId)">{{ composer.composerName }}</router-link>
+        </div>
+        <div class="detail-row">
+          <strong>Suzuki Book Level (approx):</strong>
           <span>{{ celloPiece.suzukiBookLevelId }}</span>
         </div>
         <div class="detail-row">
           <strong>Audio Link:</strong>
-          <a :href="celloPiece.audioLink">Listen</a>
-        </div>
-        <div class="detail-row">
-          <strong>Publisher Info:</strong>
-          <span>{{ celloPiece.publisherInfo }}</span>
+          <a :href="celloPiece.audioLink" target="_blank">Listen</a>
         </div>
         <div class="detail-row">
           <strong>Description:</strong>
@@ -29,9 +29,13 @@
           <span>{{ celloPiece.technicalOverview }}</span>
         </div>
         <div class="detail-row">
-          <strong>Where to Buy or Download:</strong>
-          <span>{{ celloPiece.whereToBuyOrDownload }}</span>
-        </div>
+      <strong>Where to Buy or Download:</strong>
+      <span>
+        <a v-for="(link, index) in getLinksArray(celloPiece.whereToBuyOrDownload)" :key="index" :href="link" target="_blank">
+          {{ link }}<span v-if="index < getLinksArray(celloPiece.whereToBuyOrDownload).length - 1">, </span>
+        </a>
+      </span>
+    </div>
         <div class="detail-row">
           <strong>Duration:</strong>
           <span>{{ celloPiece.duration }}</span>
@@ -43,6 +47,10 @@
         <div class="detail-row">
           <strong>Public Domain:</strong>
           <span>{{ celloPiece.publicDomain ? 'Yes' : 'No' }}</span>
+        </div>
+        <div class="detail-row">
+          <strong>Publisher Info:</strong>
+          <span>{{ celloPiece.publisherInfo }}</span>
         </div>
       </div>
     </div>
@@ -76,6 +84,18 @@ export default {
       .catch(error => {
         console.log(error);
       })
+  },
+  methods: {
+    getComposerPageLink(composerId) {
+      return `/composers/${composerId}`;
+    },
+    emitComposerClicked() {
+      this.$emit("composer-clicked", this.piece.composerId);
+    },
+    // This does not yet remove the string
+    getLinksArray(linksString) {
+      return linksString.split(',').map(link => link.trim().replace(/,$/, ''));
+    },
   }
 };
 </script>
@@ -86,6 +106,10 @@ export default {
   margin: 0 auto;
   padding: 2rem;
   font-family: Arial, sans-serif;
+}
+
+.piece-image {
+  max-width: 100%;
 }
 
 h1 {

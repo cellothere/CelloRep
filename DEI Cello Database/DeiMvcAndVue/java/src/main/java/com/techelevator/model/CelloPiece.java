@@ -14,13 +14,15 @@ public class CelloPiece {
     private boolean isPublicDomain;
     private String whereToBuyOrDownload;
     private String duration;
+    private String coverImage;
 
     public CelloPiece() {
     }
 
     public CelloPiece(int pieceId, String pieceName, int composerId, int suzukiBookLevelId, boolean isArrangement,
                       String audioLink, String sheetMusicLink, String publisherInfo, String description,
-                      String technicalOverview, boolean isPublicDomain, String whereToBuyOrDownload, String duration) {
+                      String technicalOverview, boolean isPublicDomain, String whereToBuyOrDownload, String duration,
+                      String coverImage) {
         this.pieceId = pieceId;
         this.pieceName = pieceName;
         this.composerId = composerId;
@@ -34,7 +36,10 @@ public class CelloPiece {
         this.isPublicDomain = isPublicDomain;
         this.whereToBuyOrDownload = whereToBuyOrDownload;
         this.duration = duration;
+        this.coverImage = coverImage;
     }
+
+    // Getters and setters
 
     public int getPieceId() {
         return pieceId;
@@ -140,4 +145,11 @@ public class CelloPiece {
         this.duration = duration;
     }
 
+    public String getCoverImage() {
+        return coverImage;
+    }
+
+    public void setCoverImage(String coverImage) {
+        this.coverImage = coverImage;
+    }
 }

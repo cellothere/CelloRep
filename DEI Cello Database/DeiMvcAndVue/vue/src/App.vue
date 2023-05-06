@@ -19,7 +19,7 @@
       <input type="text" placeholder="Search..." />
     </div>
     <router-view></router-view>
-    <footer>&copy; 2023 DEI Cello Repertoire Finder. All rights reserved.</footer>
+    <footer> @2023 Cello Repertoire Initiative.</footer>
   </div>
 </template>
 
@@ -151,7 +151,8 @@ nav {
 
   .navbar-links
 {
-    display: flex;
+  /*fix this once you've figured out how to make the nav bar appear and disappear*/
+    display: none; 
     flex-direction: column;
     background-color: white;
     position: absolute;

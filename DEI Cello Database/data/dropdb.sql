@@ -9,5 +9,5 @@ WHERE datname = 'DeiCelloRep';
 
 DROP DATABASE DeiCelloRep;
 
-DROP USER final_capstone_owner;
-DROP USER final_capstone_appuser;
+-- DROP USER final_capstone_owner;
+-- DROP USER final_capstone_appuser;

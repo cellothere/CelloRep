@@ -1,11 +1,10 @@
 <template>
   <div class="cello-piece-card">
-    <img src="https://static.alfred.com/cache/c3/73/c373b66d76600d945e94da44f068041d.jpg" alt="Composer" class="composer-img">
+    <img :src="piece.coverImage" alt="Composer" class="piece-img">
     <router-link :to="getPieceOverview(piece.pieceId)">{{ piece.pieceName }}</router-link>
 
     <router-link :to="getComposerPageLink(piece.composerId)" @click="emitComposerClicked">
       {{ composerNames[piece.composerId] }}
-      Composer
     </router-link>
 
     <p class="book-level">Book Level: {{ piece.suzukiBookLevelId }}</p>
@@ -80,8 +79,8 @@ export default {
   color: #666;
 }
 
-.composer-img {
-  width: 6rem;
+.piece-img {
+  width: 5rem;
   height: 100px;
   margin-bottom: 10px;
 }

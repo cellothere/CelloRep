@@ -4,7 +4,18 @@
       <div class="image" :style="`background-image: url(${currentImage})`" :class="{ 'fade-in': fadeIn, 'slide-out': slideOut, 'slide-in': slideIn }"></div> <!-- Grid area for the image -->
     </div>
     <div class="welcomeContent">
-      <h2>Welcome to the Cello Repertoire Initiative</h2> 
+      <h2>Welcome to the Cello Repertoire Initiative</h2>
+      <br>
+      <h3>
+        <router-link to="/pieces" class="routerLinkToPieces">Find music for your students</router-link>
+        <br>
+        <br>
+        <router-link to="/pieces" class="routerLinkToPieces">Browse our Catalogue</router-link>
+        <br>
+        <br>
+        <router-link to="/composers" class="routerLinkToPieces">Discover cello works by historically underepresented composers</router-link>
+      </h3>
+      <router-link to="/composers"></router-link>
       </div>
   </div>
 </template>
@@ -124,6 +135,38 @@ export default {
   place-items: center;
   font-family: Poppins;
 }
+.router-link h3 {
+  size: 10rem;
+  color: black;
+  font-family: Poppins;
+}
+
+.routerLinkToPieces,
+.routerLinkToPieces:visited {
+  color: black;
+  text-decoration: none;
+  font-size: 1.2rem;
+  position: relative; /* Add this for positioning the pseudo-element */
+}
+
+.routerLinkToPieces::before {
+  content: "";
+  position: absolute;
+  width: 100%;
+  height: 1px; /* Set the height of the underline */
+  bottom: -2px;
+  left: 0; /* Start from the left */
+  background-color: black;
+  transform: scaleX(0); /* Initially set the scale to 0 */
+  transform-origin: left center; /* Set the transform origin to the left center */
+  transition: transform 0.3s ease; /* Add a smooth transition for transform property */
+}
+
+.routerLinkToPieces:hover::before {
+  transform: scaleX(1); /* Scale the underline to 1 */
+}
+
+
 
 @media (max-width: 600px) {
   .landing-page {
@@ -132,7 +175,7 @@ export default {
   }
 
   .image {
-    height: 300px; /* Adjust the image height for mobile */
+    height: auto;
   }
 }
 </style>

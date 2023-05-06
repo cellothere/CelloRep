@@ -3,7 +3,7 @@
     <div class="composerInfo">
         <h2>{{ composer.composerName }}</h2>
         <article class="bio">{{ composer.composerBio}}</article>
-        <a :href="composer.wikipediaLink" target="_blank" rel="noopener noreferrer" @mouseover="showPreview" @mouseleave="hidePreview">Wikipedia Article</a>
+        <a :href="composer.wikipediaLink" target="_blank" rel="noopener noreferrer" @mouseover="showPreview" @mouseleave="hidePreview">Learn more!</a>
         <div class="wiki-preview" v-show="previewVisible" ref="wikiPreview"></div>
     </div>
 
