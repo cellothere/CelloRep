@@ -10,10 +10,10 @@
         <router-link to="/pieces" class="routerLinkToPieces">Find music for your students</router-link>
         <br>
         <br>
-        <router-link to="/pieces" class="routerLinkToPieces">Browse our Catalogue</router-link>
+        <router-link to="/pieces" class="routerLinkToPieces">Browse our catalogue</router-link>
         <br>
         <br>
-        <router-link to="/composers" class="routerLinkToPieces">Discover cello works by historically underepresented composers</router-link>
+        <router-link to="/composers" class="routerLinkToPieces">Discover composers</router-link>
       </h3>
       <router-link to="/composers"></router-link>
       </div>

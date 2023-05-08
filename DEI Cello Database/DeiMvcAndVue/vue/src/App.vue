@@ -9,7 +9,7 @@
         <router-link to="/" class="navbar-link" @click="closeMobileMenu">Home</router-link>
         <router-link to="/pieces" class="navbar-link" @click="closeMobileMenu">Find Repertoire</router-link>
         <router-link to="/about" class="navbar-link" @click="closeMobileMenu">Our Mission</router-link>
-        <router-link to="/contact" class="navbar-link" @click="closeMobileMenu">Contribute</router-link>
+        <router-link to="/contribute" class="navbar-link" @click="closeMobileMenu">Contribute</router-link>
       </div>
       <div class="search-icon" @click="onSearchClick">
           <i class="fas fa-search"></i>
