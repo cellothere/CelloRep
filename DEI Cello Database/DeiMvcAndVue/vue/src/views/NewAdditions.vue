@@ -1,11 +1,17 @@
 <template>
-  <div>Hello</div>
+  <div>
+    <new-addition-banner></new-addition-banner>
+
+  </div>
 </template>
 
 <script>
-export default {
+import NewAdditionBanner from "../components/NewAdditionBanner.vue"
 
-}
+export default {
+  components: { NewAdditionBanner },
+  }
+
 </script>
 
 <style>
