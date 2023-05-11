@@ -10,6 +10,7 @@
         <router-link to="/pieces" class="navbar-link" @click="closeMobileMenu">Find Repertoire</router-link>
         <router-link to="/about" class="navbar-link" @click="closeMobileMenu">Our Mission</router-link>
         <router-link to="/contribute" class="navbar-link" @click="closeMobileMenu">Contribute</router-link>
+        <router-link to="/newAdditions" class="navbar-link" @click="closeMobileMenu">Newest Additions</router-link>
       </div>
       <div class="search-icon" @click="onSearchClick">
           <i class="fas fa-search"></i>

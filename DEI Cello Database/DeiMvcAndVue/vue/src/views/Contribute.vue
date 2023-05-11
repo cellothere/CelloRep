@@ -1,33 +1,21 @@
 
 <template>
-    <div class="contribute">
-      <h1>Contribute to our database</h1>
-      <p>
-        Is there a piece of music or teaching resource not on our website? If so,
-        please fill out the form below and we will add it to our database!
-      </p>
-      <form @submit.prevent="submitForm">
-        <div class="form-group">
-          <label for="pieceName">Piece Name: (Required)</label>
-          <input
-            type="text"
-            id="pieceName"
-            v-model="pieceName"
-            required
-            class="form-control"
-          />
-        </div>
-        <div class="form-group">
-          <label for="composer">Composer(s): (Required)</label>
-          <input
-            type="text"
-            id="composer"
-            v-model="composer"
-            required
-            class="form-control"
-          />
-        </div>
-        <!-- <div class="form-group">
+  <div class="contribute">
+    <h1>Contribute to our database</h1>
+    <p>
+      Is there a piece of music or teaching resource not on our website? If so,
+      please fill out the form below and we will add it to our database!
+    </p>
+    <form @submit.prevent="submitForm">
+      <div class="form-group">
+        <label for="pieceName">Piece Name: (Required)</label>
+        <input type="text" id="pieceName" v-model="pieceName" required class="form-control" />
+      </div>
+      <div class="form-group">
+        <label for="composer">Composer(s): (Required)</label>
+        <input type="text" id="composer" v-model="composer" required class="form-control" />
+      </div>
+      <!-- <div class="form-group">
           <label for="coverImage">Cover Image:</label>
           <input
             type="text"
@@ -37,25 +25,15 @@
             class="form-control"
           />
         </div> -->
-        <div class="form-group">
-          <label for="whereToBuyOrDownload">Where can we find, buy, or download this piece? (Required)</label>
-          <input
-            type="text"
-            id="whereToBuyOrDownload"
-            v-model="whereToBuyOrDownload"
-            required
-            class="form-control"
-          />
-        </div>
-        <div class="form-group">
-          <label for="description">Description: (Optional)</label>
-          <textarea
-            id="description"
-            v-model="description"
-            class="form-control"
-          ></textarea>
-        </div>
-        <!-- <div class="form-group">
+      <div class="form-group">
+        <label for="whereToBuyOrDownload">Where can we find, buy, or download this piece? (Required)</label>
+        <input type="text" id="whereToBuyOrDownload" v-model="whereToBuyOrDownload" required class="form-control" />
+      </div>
+      <div class="form-group">
+        <label for="description">Description: (Optional)</label>
+        <textarea id="description" v-model="description" class="form-control"></textarea>
+      </div>
+      <!-- <div class="form-group">
           <label for="technicalOverview">Technical Overview:</label>
           <textarea
             id="technicalOverview"
@@ -63,7 +41,7 @@
             class="form-control"
           ></textarea>
         </div> -->
-        <!-- <div class="form-group">
+      <!-- <div class="form-group">
           <label for="audioLink">Audio Link:</label>
           <input
             type="text"
@@ -73,7 +51,7 @@
           />
         </div> -->
 
-        <!-- <div class="form-group">
+      <!-- <div class="form-group">
           <label for="duration">Duration:</label>
           <input
             type="text"
@@ -112,67 +90,62 @@
             v-model="publisherInfo"
             class="form-control"
           /> -->
-        <!-- </div> -->
-        <button type="submit" class="btn btn-primary">Submit</button>
-      </form>
-    </div>
-  </template>
-  <script>
-  import emailjs from "emailjs-com";
+      <!-- </div> -->
+      <button type="submit" class="btn btn-primary">Submit</button>
+    </form>
+  </div>
+</template>
+<script>
+import emailjs from "emailjs-com";
 
-  
-  export default {
-    name: "Contribute",
-    data() {
-      return {
-pieceName: "",
-composer: "",
-coverImage: "",
-description: "",
-technicalOverview: "",
-audioLink: "",
-whereToBuyOrDownload: "",
-duration: "",
-arrangement: false,
-publicDomain: false,
-publisherInfo: ""
-};
-},
-created() {
+
+export default {
+  name: "Contribute",
+  data() {
+    return {
+      pieceName: "",
+      composer: "",
+      whereToBuyOrDownload: "",
+      description: ""
+    };
+  },
+  created() {
     emailjs.init("zxjhLDmpRSIw4Gqlu");
   },
-methods: {
+  methods: {
     sendEmail(celloPiece) {
-    // Email template parameters
-    const templateParams = {
-      ...celloPiece
-    };
+      // Email template parameters
+      const templateParams = {
+        pieceName: celloPiece.pieceName,
+        composer: celloPiece.composer,
+        whereToBuyOrDownload: celloPiece.whereToBuyOrDownload,
+        description: celloPiece.description,
+      };
 
-    // Send the email using EmailJS
-    emailjs
-      .send("service_ytjldce", "template_58yz2bs", templateParams, "zxjhLDmpRSIw4Gqlu")
-      .then(
-        (response) => {
-          console.log("SUCCESS!", response.status, response.text);
-        },
-        (error) => {
-          console.log("FAILED...", error);
-        }
-      );
-  },
-  submitForm() {
-  const celloPiece = {
-    pieceName: this.pieceName,
-    composer: this.composer,
-    coverImage: this.coverImage,
-    description: this.description,
-    whereToBuyOrDownload: this.whereToBuyOrDownload,
-  };
-  
-  // Call the sendEmail method instead of adding the piece to the database
-  this.sendEmail(celloPiece)
-}
-}
+      // Send the email using EmailJS
+      emailjs
+        .send("service_ytjldce", "template_qw94mwl", templateParams, "zxjhLDmpRSIw4Gqlu")
+        .then(
+          (response) => {
+            console.log("Email sent", response.status, response.text);
+          },
+          (error) => {
+            console.log("Email not sent...", error);
+          }
+        );
+    },
+    submitForm() {
+      const celloPiece = {
+        pieceName: this.pieceName,
+        composer: this.composer,
+        whereToBuyOrDownload: this.whereToBuyOrDownload,
+        description: this.description,
+      };
+
+      // Call the sendEmail method instead of adding the piece to the database
+      this.sendEmail(celloPiece)
+    }
+  }
 }
 </script>
 

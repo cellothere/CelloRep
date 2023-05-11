@@ -153,8 +153,8 @@ export default {
   content: "";
   position: absolute;
   width: 100%;
-  height: 1px; /* Set the height of the underline */
-  bottom: -2px;
+  height: 2px; /* Set the height of the underline */
+  bottom: -4px;
   left: 0; /* Start from the left */
   background-color: black;
   transform: scaleX(0); /* Initially set the scale to 0 */

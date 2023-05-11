@@ -63,6 +63,7 @@ export default {
 .cello-piece-card h3 {
   margin-bottom: 5px;
   font-size: 1rem;
+  min-width: 10rem;
 }
 
 .cello-piece-card p {

@@ -6,6 +6,7 @@ import CelloPieces from '../views/CelloPieces.vue'
 import IndividualComposer from "../views/IndividualComposerPage.vue";
 import CelloPieceOverview from "../views/CelloPieceOverview"
 import Contribute from "../views/Contribute"
+import NewAdditions from "../views/NewAdditions"
 import About from "../views/About"
 import store from '../store/index'
 
@@ -32,6 +33,18 @@ const router = new Router({
         requiresAuth: false
       }
     },
+
+    {
+      path: "/newAdditions",
+      name: "New Additions",
+      component: NewAdditions,
+      meta: {
+        requiresAuth: false
+      }
+
+    },
+
+
     {
 
       path: "/contribute",

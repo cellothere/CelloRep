@@ -58,6 +58,7 @@ export default {
         { id: 7, name: 'Book 7', color: 'green' },
         { id: 8, name: 'Book 8', color: 'green' },
         { id: 9, name: 'Book 9+', color: 'green' },
+        { id: 10, name: 'Professional', color: 'green'}
       ],
       selectedLevel: null,
       numVisibleCards: 12,
@@ -128,9 +129,12 @@ export default {
 
 <style>
 .cello-pieces-container {
-  max-width: 800px;
+  display: flex;
+  flex-direction: column;
+  max-width: 100%;
   margin: 0 auto;
   padding: 40px;
+  justify-content: center; /* added to center all elements within the container */
 }
 
 h1 {
@@ -177,16 +181,19 @@ h1 {
 .cello-pieces-list {
   display: flex;
   flex-wrap: wrap;
+  margin: 0 auto;
+  justify-content: center; /* added to center the cello-pieces-list div */
 }
 
 .cello-piece-card {
-  flex-basis: 30%;
+  flex-basis: 20%;
   background-color: #f8f8f8;
   border-radius: 4px;
   padding: 10px;
   margin-bottom: 20px;
   box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
   transition: box-shadow 0.3s ease;
+  min-width: 15rem;
 }
 
 .cello-piece-card:hover {
