@@ -31,9 +31,9 @@
         <div class="detail-row">
       <strong>Where to Buy or Download:</strong>
       <span>
-        <a v-for="(link, index) in getLinksArray(celloPiece.whereToBuyOrDownload)" :key="index" :href="link" target="_blank">
-          {{ link }}<span v-if="index < getLinksArray(celloPiece.whereToBuyOrDownload).length - 1">, </span>
-        </a>
+        <a v-for="(link, index) in getLinksArray(celloPiece.whereToBuyOrDownload)" :key="index" :href="addProtocol(link)" target="_blank">
+  {{ link }}<span v-if="index < getLinksArray(celloPiece.whereToBuyOrDownload).length - 1">, </span>
+</a>
       </span>
     </div>
         <div class="detail-row">
@@ -96,6 +96,12 @@ export default {
     getLinksArray(linksString) {
       return linksString.split(',').map(link => link.trim().replace(/,$/, ''));
     },
+    addProtocol(url) {
+    if (!/^https?:\/\//i.test(url)) {
+      url = 'http://' + url;
+    }
+    return url;
+  }
   }
 };
 </script>
