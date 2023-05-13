@@ -115,7 +115,9 @@ export default {
   grid-area: text; /* Place the text in the "text" grid area */
 
 }
-
+h2 {
+  font-size: 2.1rem;
+}
 .welcomeContent {
   display: flex;
   font-family: Poppins;

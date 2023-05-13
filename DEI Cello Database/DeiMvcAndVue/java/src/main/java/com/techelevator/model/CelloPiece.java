@@ -1,5 +1,7 @@
 package com.techelevator.model;
 
+import java.sql.Time;
+
 public class CelloPiece {
     private int pieceId;
     private String pieceName;
@@ -13,7 +15,7 @@ public class CelloPiece {
     private String technicalOverview;
     private boolean isPublicDomain;
     private String whereToBuyOrDownload;
-    private String duration;
+    private Time duration;
     private String coverImage;
 
     public CelloPiece() {
@@ -21,7 +23,7 @@ public class CelloPiece {
 
     public CelloPiece(int pieceId, String pieceName, int composerId, int suzukiBookLevelId, boolean isArrangement,
                       String audioLink, String sheetMusicLink, String publisherInfo, String description,
-                      String technicalOverview, boolean isPublicDomain, String whereToBuyOrDownload, String duration,
+                      String technicalOverview, boolean isPublicDomain, String whereToBuyOrDownload, Time duration,
                       String coverImage) {
         this.pieceId = pieceId;
         this.pieceName = pieceName;
@@ -137,11 +139,11 @@ public class CelloPiece {
         this.whereToBuyOrDownload = whereToBuyOrDownload;
     }
 
-    public String getDuration() {
+    public Time getDuration() {
         return duration;
     }
 
-    public void setDuration(String duration) {
+    public void setDuration(Time duration) {
         this.duration = duration;
     }
 
