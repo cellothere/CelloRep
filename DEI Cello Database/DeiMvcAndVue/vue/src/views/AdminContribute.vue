@@ -1,10 +1,9 @@
 
 <template>
     <div class="admin-contribute">
-      <h1>Contribute to our database</h1>
+      <h1>Admin Database Addition</h1>
       <p>
-        Is there a piece of music or teaching resource not on our website? If so,
-        please fill out the form below and we will add it to our database!
+
       </p>
       <form @submit.prevent="submitForm">
         <div class="form-group">
@@ -12,7 +11,7 @@
           <input type="text" id="pieceName" v-model="pieceName" required class="form-control" />
         </div>
         <div class="form-group">
-          <label for="composer">Composer(s): (Required)</label>
+          <label for="composer">Composer: (Required)</label>
           <input type="text" id="composer" v-model="composer" required class="form-control" />
         </div>
         <div class="form-group">
@@ -90,24 +89,35 @@
               v-model="publisherInfo"
               class="form-control"
             />
+          </div>
         <button type="submit" class="btn btn-primary">Submit</button>
       </form>
     </div>
   </template>
   <script>
   import emailjs from "emailjs-com";
+  import CelloPiecesService from "../services/CelloPieceService";
   
   
   export default {
     name: "Contribute",
     data() {
-      return {
-        pieceName: "",
-        composer: "",
-        whereToBuyOrDownload: "",
-        description: ""
-      };
-    },
+  return {
+    pieceName: "",
+    composerId: "",
+    suzukiBookLevelId: "",
+    audioLink: "",
+    sheetMusicLink: "",
+    publisherInfo: "",
+    description: "",
+    technicalOverview: "",
+    whereToBuyOrDownload: "",
+    duration: "",
+    coverImage: "",
+    arrangement: false,
+    publicDomain: false
+  };
+},
     created() {
       emailjs.init("zxjhLDmpRSIw4Gqlu");
     },
@@ -135,15 +145,32 @@
       },
       submitForm() {
         const celloPiece = {
-          pieceName: this.pieceName,
-          composer: this.composer,
-          whereToBuyOrDownload: this.whereToBuyOrDownload,
-          description: this.description,
-        };
-  
-        // Call the sendEmail method instead of adding the piece to the database
-        this.sendEmail(celloPiece)
-      }
+  pieceName: this.pieceName,
+  composerId: this.composer,
+  coverImage: this.coverImage,
+  whereToBuyOrDownload: this.whereToBuyOrDownload,
+  description: this.description,
+  technicalOverview: this.technicalOverview,
+  audioLink: this.audioLink,
+  duration: this.duration,
+  arrangement: this.arrangement,
+  publicDomain: this.publicDomain,
+  publisherInfo: this.publisherInfo
+};
+
+  // Call the createCelloPiece method from the CelloPiecesService
+  CelloPiecesService.createCelloPiece(celloPiece)
+    .then(response => {
+      // Handle the successful creation of the cello piece
+      console.log('Cello piece created:', response.data);
+      // Optionally, show a success message to the user
+    })
+    .catch(error => {
+      // Handle any errors that occurred during the creation
+      console.error('Error creating cello piece:', error);
+      // Optionally, show an error message to the user
+    });
+}
     }
   }
   </script>

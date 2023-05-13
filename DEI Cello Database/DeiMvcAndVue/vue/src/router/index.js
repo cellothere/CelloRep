@@ -7,6 +7,7 @@ import IndividualComposer from "../views/IndividualComposerPage.vue";
 import CelloPieceOverview from "../views/CelloPieceOverview"
 import Contribute from "../views/Contribute"
 import NewAdditions from "../views/NewAdditions"
+import AdminContribute from "../views/AdminContribute"
 import About from "../views/About"
 import store from '../store/index'
 
@@ -50,6 +51,16 @@ const router = new Router({
       path: "/contribute",
       name: "Contribute",
       component: Contribute,
+      meta: {
+        requiresAuth: false
+      }
+    },
+
+    {
+
+      path: "/adminContribute",
+      name: "Admin Contribute",
+      component: AdminContribute,
       meta: {
         requiresAuth: false
       }
