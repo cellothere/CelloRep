@@ -12,6 +12,10 @@ export default {
     return http.get(`/${id}`);
   },
 
+  getComposerIdByComposerName(composerName) {
+    return http.get('/getId', { params: { composerName } });
+},
+  
   addComposer(composer) {
     return http.post('/create', composer);
   },
@@ -23,5 +27,4 @@ export default {
   deleteComposer(id) {
     return http.delete(`/delete/${id}`);
   },
-
 };

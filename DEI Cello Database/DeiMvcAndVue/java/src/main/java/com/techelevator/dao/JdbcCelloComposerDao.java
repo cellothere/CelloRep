@@ -51,6 +51,19 @@ public class JdbcCelloComposerDao implements CelloComposerDao {
     }
 
     @Override
+    public Integer getComposerIdByComposerName(String name) throws SQLException {
+        String sql = "SELECT composer_id FROM cello_composers WHERE composer_name = ?;";
+        try {
+            Integer foundComposerId = jdbcTemplate.queryForObject(sql, Integer.class, name);
+            return foundComposerId;
+        } catch (EmptyResultDataAccessException e) {
+            throw new IllegalArgumentException("No composer with the given name found.");
+        } catch (Exception e) {
+            throw new SQLException("Error retrieving composer ID.", e);
+        }
+    }
+
+    @Override
     public void addComposer(CelloComposer composer) throws SQLException {
         String sql = "INSERT INTO cello_composers (composer_id, composer_name, composer_bio) VALUES (?, ?, ?)";
         jdbcTemplate.update(sql, composer.getComposerId(), composer.getComposerName(), composer.getComposerBio());

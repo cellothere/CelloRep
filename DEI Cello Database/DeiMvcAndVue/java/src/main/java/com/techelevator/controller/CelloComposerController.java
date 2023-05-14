@@ -2,10 +2,12 @@ package com.techelevator.controller;
 
 import com.techelevator.dao.CelloComposerDao;
 import com.techelevator.model.CelloComposer;
+import com.techelevator.model.ComposerNameRequest;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.security.access.prepost.PreAuthorize;
 import org.springframework.web.bind.annotation.*;
+import org.springframework.web.server.ResponseStatusException;
 
 import java.sql.SQLException;
 import java.util.List;
@@ -68,6 +70,22 @@ public class CelloComposerController {
         } catch (SQLException e) {
             // Handle exceptions
             return new ResponseEntity<>(HttpStatus.INTERNAL_SERVER_ERROR);
+        }
+    }
+
+    @GetMapping("/getId")
+    public ResponseEntity<Integer> getComposerIdByComposerName(@RequestBody ComposerNameRequest request) {
+        try {
+            String composerName = request.getComposerName();
+            Integer composerId = celloComposerDao.getComposerIdByComposerName(composerName);
+            if (composerId != null) {
+                return ResponseEntity.ok(composerId);
+            }
+            return ResponseEntity.notFound().build();
+        } catch (SQLException e) {
+            // Handle SQLException with detailed error message
+            return ResponseEntity.status(HttpStatus.INTERNAL_SERVER_ERROR)
+                    .body(null);
         }
     }
 

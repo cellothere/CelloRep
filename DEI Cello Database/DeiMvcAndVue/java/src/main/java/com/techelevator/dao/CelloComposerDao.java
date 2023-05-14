@@ -18,4 +18,6 @@ public interface CelloComposerDao {
     String getWikipediaArticleByComposerId(int id) throws SQLException;
 
     void deleteComposer(int id) throws SQLException;
+
+    Integer getComposerIdByComposerName(String name) throws SQLException;
 }
