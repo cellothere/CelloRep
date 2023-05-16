@@ -13,7 +13,7 @@ export default {
   },
 
   getComposerIdByComposerName(composerName) {
-    return http.get('/getId', { params: { composerName } });
+    return http.get(`/${composerName}/getId`);
 },
   
   addComposer(composer) {

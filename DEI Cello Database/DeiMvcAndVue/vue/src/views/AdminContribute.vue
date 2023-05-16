@@ -27,6 +27,13 @@
         <textarea id="description" v-model="description" class="form-control"></textarea>
       </div>
       <div class="form-group">
+  <label for="suzukiBookLevel">Approximate Suzuki Book Level:</label>
+  <select id="suzukiBookLevel" v-model="suzukiBookLevelId" class="form-control">
+    <option value="">Select Book Level</option>
+    <option v-for="level in suzukiBookLevels" :value="level.value" :key="level.value">{{ level.label }}</option>
+  </select>
+</div>
+      <div class="form-group">
         <label for="technicalOverview">Technical Overview:</label>
         <textarea id="technicalOverview" v-model="technicalOverview" class="form-control"></textarea>
       </div>
@@ -36,20 +43,26 @@
       </div>
 
       <div class="form-group">
-        <label for="duration">Duration:</label>
-        <input type="text" id="duration" v-model="duration" class="form-control" />
-      </div>
+  <label for="duration">Duration:</label>
+  <div class="duration-input">
+    <input type="text" id="hours" v-model="duration.hours" maxlength="2" @input="formatDuration" class="form-control duration-input-field" placeholder="hour"/>
+    <span>:</span>
+    <input type="text" id="minutes" v-model="duration.minutes" maxlength="2" @input="formatDuration" class="form-control duration-input-field" placeholder="minute"/>
+    <span>:</span>
+    <input type="text" id="seconds" v-model="duration.seconds" maxlength="2" @input="formatDuration" class="form-control duration-input-field" placeholder="second"/>
+  </div>
+</div>
       <div class="form-check">
-        <input type="checkbox" id="arrangement" v-model="arrangement" class="form-check-input" />
         <label for="arrangement" class="form-check-label">
-          Is This an Arrangement?
+          Is this an Arrangement?
         </label>
+        <input type="checkbox" id="arrangement" v-model="arrangement" class="form-check-input" />
       </div>
       <div class="form-check">
-        <input type="checkbox" id="publicDomain" v-model="publicDomain" class="form-check-input" />
         <label for="publicDomain" class="form-check-label">
           Public Domain?
         </label>
+        <input type="checkbox" id="publicDomain" v-model="publicDomain" class="form-check-input" />
       </div>
       <div class="form-group">
         <label for="publisherInfo">Publisher Info:</label>
@@ -70,6 +83,7 @@ export default {
   name: "Contribute",
   data() {
     return {
+      
       pieceName: "",
       composerId: "",
       composerName: "",
@@ -80,10 +94,26 @@ export default {
       description: "",
       technicalOverview: "",
       whereToBuyOrDownload: "",
-      duration: "",
+      duration: {
+  hours: "",
+  minutes: "",
+  seconds: ""
+},
       coverImage: "",
       arrangement: false,
-      publicDomain: false
+      publicDomain: false,
+      suzukiBookLevels: [
+      { value: 1, label: "Book 1" },
+      { value: 2, label: "Book 2" },
+      { value: 3, label: "Book 3" },
+      { value: 4, label: "Book 4" },
+      { value: 5, label: "Book 5" },
+      { value: 6, label: "Book 6" },
+      { value: 7, label: "Book 7" },
+      { value: 8, label: "Book 8" },
+      { value: 9, label: "Book 9" },
+      { value: 10, label: "Professional" }
+    ]
     };
   },
   created() {
@@ -113,45 +143,71 @@ export default {
     },
 
     async getComposerId() {
-      const composerNameProp = {
-        composerName: this.composerName
+      try {
+        const response = await CelloComposerService.getComposerIdByComposerName(
+          this.composerName
+        );
+        this.composerId = response.data; // Update composerId with the retrieved value
+      } catch (error) {
+        console.error("Error retrieving composer ID:", error);
       }
-      await CelloComposerService.getComposerIdByComposerName(composerNameProp)
-      return composerNameProp;
+    },
+
+    formatDuration() {
+  const hours = this.duration.hours || "";
+  const minutes = this.duration.minutes || "";
+  const seconds = this.duration.seconds || "";
+
+  // Restrict hours, minutes, and seconds to two digits
+  const formattedHours = hours.slice(0, 2);
+  const formattedMinutes = minutes.slice(0, 2);
+  const formattedSeconds = seconds.slice(0, 2);
+
+  // Update the duration with the formatted string
+  this.duration = {
+    hours: formattedHours,
+    minutes: formattedMinutes,
+    seconds: formattedSeconds
+  };
 },
 
+submitForm() {
+  this.getComposerId()
+    .then(() => {
+      const formattedDuration = `${this.duration.hours.padStart(2, "0")}:${this.duration.minutes.padStart(
+        2,
+        "0"
+      )}:${this.duration.seconds.padStart(2, "0")}`;
 
-    submitForm() {
-      
       const celloPiece = {
         pieceName: this.pieceName,
-        composerId: this.getComposerId(),
+        composerId: this.composerId,
         coverImage: this.coverImage,
         whereToBuyOrDownload: this.whereToBuyOrDownload,
         description: this.description,
         technicalOverview: this.technicalOverview,
         audioLink: this.audioLink,
-        duration: this.duration,
+        duration: formattedDuration,
         arrangement: this.arrangement,
         publicDomain: this.publicDomain,
-        publisherInfo: this.publisherInfo
+        publisherInfo: this.publisherInfo,
+        suzukiBookLevelId: this.suzukiBookLevelId
       };
-
-      // Call the createCelloPiece method from the CelloPiecesService
-      CelloPiecesService.createCelloPiece(celloPiece)
-        .then(response => {
-          // Handle the successful creation of the cello piece
-          console.log('Cello piece created:', response.data);
-          // Optionally, show a success message to the user
-        })
-        .catch(error => {
-          // Handle any errors that occurred during the creation
-          console.error('Error creating cello piece:', error);
-          // Optionally, show an error message to the user
-        });
+            // Call the createCelloPiece method from the CelloPiecesService
+            CelloPiecesService.createCelloPiece(celloPiece)
+              .then((response) => {
+                console.log("Cello piece created:", response.data);
+              })
+              .catch((error) => {
+                console.error("Error creating cello piece:", error);
+              });
+          })
+          .catch((error) => {
+            console.error("Error retrieving composer ID:", error);
+          });
+      },
     }
   }
-}
 </script>
   
 <style scoped>
@@ -169,6 +225,14 @@ h1 {
 
 .form-group {
   margin-bottom: 1rem;
+  margin-right: 7rem;
+  margin-left: 1rem;
+}
+
+.form-check {
+  margin-bottom: 1rem;
+  margin-right: 7rem;
+  margin-left: 1rem;
 }
 
 label {
@@ -240,5 +304,17 @@ label {
 
 .btn:hover {
   background-color: #0056b3;
+}
+.duration-input {
+  display: flex;
+  flex-wrap: wrap;
+  align-content: center;
+}
+
+.duration-input-field {
+  flex: 1;
+  margin-right: 0.5rem;
+  margin-left: 0.5rem;
+  max-width: 50px;
 }
 </style>

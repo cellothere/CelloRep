@@ -73,10 +73,9 @@ public class CelloComposerController {
         }
     }
 
-    @GetMapping("/getId")
-    public ResponseEntity<Integer> getComposerIdByComposerName(@RequestBody ComposerNameRequest request) {
+    @GetMapping("{composerName}/getId")
+    public ResponseEntity<Integer> getComposerIdByComposerName(@PathVariable String composerName) {
         try {
-            String composerName = request.getComposerName();
             Integer composerId = celloComposerDao.getComposerIdByComposerName(composerName);
             if (composerId != null) {
                 return ResponseEntity.ok(composerId);
