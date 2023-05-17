@@ -65,8 +65,8 @@ public class JdbcCelloComposerDao implements CelloComposerDao {
 
     @Override
     public void addComposer(CelloComposer composer) throws SQLException {
-        String sql = "INSERT INTO cello_composers (composer_id, composer_name, composer_bio) VALUES (?, ?, ?)";
-        jdbcTemplate.update(sql, composer.getComposerId(), composer.getComposerName(), composer.getComposerBio());
+        String sql = "INSERT INTO cello_composers (composer_name, composer_bio, wikipedia_article) VALUES (?, ?, ?)";
+        jdbcTemplate.update(sql, composer.getComposerName(), composer.getComposerBio(), composer.getWikipediaLink());
     }
 
     @Override
